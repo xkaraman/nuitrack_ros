@@ -4,6 +4,9 @@ project(nuitrack_core)
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
 
+# For nuitrack
+set(NUITRACK_SDK_PATH /home/xenofon/git/nuitrack-sdk) 
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -115,8 +118,9 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-  include
+    include
   ${catkin_INCLUDE_DIRS}
+  ${NUITRACK_SDK_PATH}/Nuitrack/include
 )
 
 link_directories(
@@ -128,11 +132,12 @@ link_directories(
 #   src/${PROJECT_NAME}/nuitrack_core.cpp
 # )
 
-add_executable(nuitrack_core_node
+add_executable(${PROJECT_NAME}_node
+  src/nuitrack_ros_node.cpp
   src/nuitrack_core.cpp
 )
 
-target_link_libraries(nuitrack_core_node
+target_link_libraries(${PROJECT_NAME}_node
   ${catkin_LIBRARIES}
   nuitrack
 )
